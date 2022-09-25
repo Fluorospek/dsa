@@ -89,10 +89,20 @@ class linkedlist
             node<T>* temp=head;
             for(int i=1;i<pos-1;i++)
             temp=temp->next;
-            node<T>* trash=temp;
+            node<T>* trash=temp->next;
             temp->next=temp->next->next;
             delete trash;
         }
+    }
+
+    void delete_end()
+    {
+        node<T>* temp=head;
+        while(temp->next->next!=nullptr)
+        temp=temp->next;
+        node<T>* trash=temp->next;
+        temp->next=nullptr;
+        delete trash;
     }
 
     void reverse()
@@ -125,5 +135,9 @@ int main()
     list.traverse();
 
     list.insert(3,100);
+    list.traverse();
+    list.delete_node(3);
+    list.traverse();
+    list.delete_end();
     list.traverse();
 }
