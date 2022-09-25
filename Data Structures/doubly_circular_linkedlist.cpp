@@ -78,11 +78,7 @@ class linkedlist
     {
         if(pos==1)
         {
-            node<T>* temp=head;
-            head->next->prev=tail;
-            tail->next=head->next;
-            head=head->next;
-            delete temp;
+            delete_start();
         }
         else
         {
@@ -94,10 +90,28 @@ class linkedlist
         }
     }
 
+    void delete_start()
+    {
+        node<T>* temp=head;
+        head->next->prev=tail;
+        tail->next=head->next;
+        head=head->next;
+        delete temp;
+    }
+
+    void delete_end()
+    {
+        node<T>* temp=tail;
+        tail->prev->next=head;
+        head->prev=tail->prev;
+        tail=tail->prev;
+        delete temp;
+    }
+
     void insert_node(int pos,T value)
     {
         if(pos==1)
-        create_node(value);
+        insert_start(value);
         else
         {
             node<T>* temp=head;
@@ -111,6 +125,42 @@ class linkedlist
             new_node->next=temp->next;
             temp->next->prev=new_node;
             temp->next=new_node;
+        }
+    }
+
+    void insert_start(T value)
+    {
+        if(head==nullptr)
+        {
+            create_node(value);
+        }
+        else
+        {
+            node<T>* new_node=new node<T>;
+            new_node->data=value;
+            new_node->next=head;
+            new_node->prev=head->prev;
+            head->prev->next=new_node;
+            head->prev=new_node;
+            head=new_node;
+        }
+    }
+
+    void insert_end(T value)
+    {
+        if(head==nullptr)
+        {
+            create_node(value);
+        }
+        else
+        {
+            node<T>* new_node=new node<T>;
+            new_node->data=value;
+            new_node->next=head;
+            new_node->prev=tail;
+            head->prev=new_node;
+            tail->next=new_node;
+            tail=new_node;
         }
     }
 };
