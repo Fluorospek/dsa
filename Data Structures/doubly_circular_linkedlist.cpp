@@ -93,19 +93,29 @@ class linkedlist
     void delete_start()
     {
         node<T>* temp=head;
-        head->next->prev=tail;
-        tail->next=head->next;
-        head=head->next;
-        delete temp;
+        if(temp->next==head)
+        head=nullptr;
+        else
+        {
+            head->next->prev=tail;
+            tail->next=head->next;
+            head=head->next;
+            delete temp;
+        }
     }
 
     void delete_end()
     {
         node<T>* temp=tail;
-        tail->prev->next=head;
-        head->prev=tail->prev;
-        tail=tail->prev;
-        delete temp;
+        if(temp->next==head)
+        head=nullptr;
+        else
+        {
+            tail->prev->next=head;
+            head->prev=tail->prev;
+            tail=tail->prev;
+            delete temp;
+        }
     }
 
     void insert_node(int pos,T value)
@@ -163,6 +173,66 @@ class linkedlist
             tail=new_node;
         }
     }
+
+    void insert_value(T value,T num)
+    {
+        node<T>* new_node=new node<T>;
+        new_node->data=value;
+        new_node->prev=nullptr;
+        new_node->next=nullptr;
+        if(head==nullptr)
+        {
+            head=new_node;
+            head->next=head;
+            head->prev=head;
+        }
+        else
+        {
+            node<T>* temp=head;
+            while(temp->next!=head&&temp->data!=num)
+            temp=temp->next;
+            if(temp->next==head&&temp->data!=num)
+            {
+                cout<<"Num not found"<<endl;
+            }
+            else
+            {
+                new_node->prev=temp;
+                new_node->next=temp->next;
+                new_node->next->prev=new_node;
+                temp->next=new_node;
+            }
+        }
+    }
+
+    void delete_value(T num)
+    {
+        if(head==nullptr)
+        {
+            cout<<"List is empty"<<endl;
+        }
+        else
+        {
+            node<T>* temp=head;
+            while(temp->next!=head&&temp->data!=num)
+            temp=temp->next;
+
+            if(temp==head)
+            {
+                delete_start();
+            }
+            else if(temp==tail)
+            {
+                delete_end();
+            }
+            else
+            {
+                temp->prev->next=temp->next;
+                temp->next->prev=temp->prev;
+                delete temp;
+            }
+        }
+    }
 };
 
 int main()
@@ -183,6 +253,17 @@ int main()
     list.traverse();
     list.traverse_reverse();
     list.insert_node(3,100);
+    list.traverse();
+    list.traverse_reverse();
+    list.insert_start(200);
+    list.insert_end(300);
+    list.traverse();
+    list.traverse_reverse();
+    list.delete_start();
+    list.delete_end();
+    list.traverse();
+    list.traverse_reverse();
+    list.insert_value(400,3);
     list.traverse();
     list.traverse_reverse();
 }

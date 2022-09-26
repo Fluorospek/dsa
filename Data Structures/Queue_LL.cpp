@@ -107,6 +107,12 @@ class queue_LL
         node<T>* trash;
         if(start==nullptr)
         cout<<"Underflow"<<endl;
+        // else if(start==end)
+        // {
+        //     trash=start;
+        //     start=end=nullptr;
+        //     delete trash;
+        // }
         else
         {
             trash=start;
