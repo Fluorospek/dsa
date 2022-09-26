@@ -19,7 +19,7 @@ class queue_circular
 
     bool Underflow()
     {
-        return(front%size==rear);
+        return(front==rear&&rear==-1);
     }
 
     public:
@@ -68,6 +68,10 @@ class queue_circular
         else if(Underflow())
         {
             cout<<"Underflow"<<endl;
+        }
+        else if(front==rear)
+        {
+            cout<<"Dequeued element is: "<<queue[front]<<endl;
             front=rear=-1;
         }
         else
@@ -93,7 +97,8 @@ int main()
     queue.print();
     queue.dequeue();
     queue.dequeue();
-    queue.print();
-    queue.enqueue(100);
-    queue.print();
+    queue.dequeue();
+    queue.dequeue();
+    queue.dequeue();
+    queue.dequeue();
 }
