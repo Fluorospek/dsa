@@ -1,22 +1,21 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-template<class T>
+template <class T>
 struct node
 {
     T data;
-    struct node* next;
+    struct node *next;
 };
 
-template<class T>
+template <class T>
 class queue_LL
 {
-    node<T>* start;
-    node<T>* end;
+    node<T> *start;
+    node<T> *end;
 
-    public:
-
-    queue_LL():start(nullptr),end(nullptr) {}
+public:
+    queue_LL() : start(nullptr), end(nullptr) {}
 
     // void enqueue(T value)
     // {
@@ -69,44 +68,44 @@ class queue_LL
 
     void enqueue(T value)
     {
-        node<T>* new_node=new node<T>;
-        new_node->data=value;
-        new_node->next=nullptr;
+        node<T> *new_node = new node<T>;
+        new_node->data = value;
+        new_node->next = nullptr;
 
-        if(start==nullptr)
+        if (start == nullptr)
         {
-            start=new_node;
-            end=new_node;
+            start = new_node;
+            end = new_node;
         }
         else
         {
-            end->next=new_node;
-            end=new_node;
-            end->next=nullptr;
+            end->next = new_node;
+            end = new_node;
+            end->next = nullptr;
         }
     }
 
     void print()
     {
-        cout<<"Entered queue is:"<<endl;
-        if(start==nullptr)
-        cout<<"Queue is empty"<<endl;
+        if (start == nullptr)
+            cout << "Queue is empty" << endl;
         else
         {
-            node<T>* temp=start;
-            while(temp!=nullptr)
+            cout << "Entered queue is:" << endl;
+            node<T> *temp = start;
+            while (temp != nullptr)
             {
-                cout<<temp->data<<endl;
-                temp=temp->next;
+                cout << temp->data << endl;
+                temp = temp->next;
             }
         }
     }
 
     void dequeue()
     {
-        node<T>* trash;
-        if(start==nullptr)
-        cout<<"Underflow"<<endl;
+        node<T> *trash;
+        if (start == nullptr)
+            cout << "Underflow" << endl;
         // else if(start==end)
         // {
         //     trash=start;
@@ -115,30 +114,40 @@ class queue_LL
         // }
         else
         {
-            trash=start;
-            cout<<"Dequeued element is: "<<trash->data<<endl;
-            start=start->next;
+            trash = start;
+            cout << "Dequeued element is: " << trash->data << endl;
+            start = start->next;
             delete trash;
         }
+    }
+
+    void peak()
+    {
+        if (start == nullptr)
+            cout << "Queue is empty" << endl;
+        else
+            cout << "The first element in the queue is: " << start->data << endl;
     }
 };
 
 int main()
 {
     queue_LL<int> queue;
-    int n,value;
-    cout<<"Enter number of elemnets to be enqueued:"<<endl;
-    cin>>n;
-    for(int i=0;i<n;i++)
+    int n, value;
+    cout << "Enter number of elemnets to be enqueued:" << endl;
+    cin >> n;
+    for (int i = 0; i < n; i++)
     {
-        cout<<"Enter a value:"<<endl;
-        cin>>value;
+        cout << "Enter a value:" << endl;
+        cin >> value;
         queue.enqueue(value);
     }
     queue.print();
+    queue.peak();
     queue.dequeue();
     queue.dequeue();
     queue.dequeue();
+    queue.peak();
     queue.dequeue();
     queue.dequeue();
     queue.dequeue();

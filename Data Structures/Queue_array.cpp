@@ -1,88 +1,101 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-template<class T>
+template <class T>
 class queue_class
 {
-    int* queue;
-    int size,start,end;
+    T *queue;
+    int size, start, end;
 
     bool isEmpty()
     {
-        return (start>end||start==-1);
+        return (start == -1 || start == end + 1);
     }
 
     bool isFull()
     {
-        return (end==size-1);
+        return (end == size - 1 && start == 0);
     }
 
-    public:
-
+public:
     queue_class(int size)
     {
-        this->size=size;
-        queue=new T[size];
-        start=end=-1;
+        this->size = size;
+        queue = new T[size];
+        start = -1;
+        end = -1;
     }
 
     void enqueue(T value)
     {
-        if(isEmpty())
+        if (isEmpty())
         {
-            start=end=0;
-            queue[end]=value;
+            start = 0;
+            end = 0;
+            queue[end] = value;
         }
-        else if(!isFull())
+        else if (isFull())
+            cout << "Overflow" << endl;
+        else
         {
             end++;
-            queue[end]=value;
+            queue[end] = value;
         }
-        else if(isFull())
-        cout<<"Overflow"<<endl;
     }
 
     void dequeue()
     {
-        if(isEmpty())
-        cout<<"Underflow"<<endl;
+        if (isEmpty())
+            cout << "Underflow" << endl;
         else
-        start++;
+        {
+            cout << "Element being dequed is: " << queue[start] << endl;
+            start++;
+        }
     }
 
     void print()
     {
-        if(isEmpty())
-        cout<<"Queue is empty"<<endl;
+        if (isEmpty())
+            cout << "Queue is empty" << endl;
         else
         {
-            cout<<"Entered queue is:"<<endl;
-            for(int i=start;i<=end;i++)
-            cout<<queue[i]<<endl;
+            cout << "Entered queue is:" << endl;
+            for (int i = start; i <= end; i++)
+                cout << queue[i] << endl;
         }
+    }
+
+    void peak()
+    {
+        if (isEmpty())
+            cout << "Queue is empty" << endl;
+        else
+            cout << "The first element in the queue is: " << queue[start] << endl;
     }
 };
 
 int main()
 {
-    int n,value;
-    cout<<"Enter the size of the queue:"<<endl;
-    cin>>n;
+    int n, value;
+    cout << "Enter the size of the queue:" << endl;
+    cin >> n;
     queue_class<int> queue(n);
-    for(int i=1;i<=n;i++)
+    for (int i = 1; i <= n; i++)
     {
-        cout<<"Enter element to be queued:"<<endl;
-        cin>>value;
+        cout << "Enter element to be queued:" << endl;
+        cin >> value;
         queue.enqueue(value);
     }
-    queue.enqueue(100);
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
-    queue.dequeue();
+    // queue.enqueue(100);
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
+    // queue.dequeue();
     queue.print();
+    queue.peak();
 }
